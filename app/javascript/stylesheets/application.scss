@@ -1,0 +1,77 @@
+@import 'bootstrap';
+
+nav {
+  height: 3em;
+}
+
+.nav-item {
+  margin: 0 0.5em 0 0.5em;
+  font-size: 22px;
+}
+
+.nav-item > a {
+  color: rgb(5, 5, 34);
+}
+
+.page-title {
+  margin: 1em;
+  text-align: center;
+  color: darkblue;
+}
+
+label {
+  margin-bottom: 0;
+  font-size: 20px;
+}
+
+[type='submit'] {
+  border-radius: 10%;
+  padding: 8px;
+  background-color: lightblue;
+  font-size: 20px;
+}
+
+.btn {
+  border-radius: 3%;
+  margin: 1em;
+  width: 20%;
+}
+
+h3 {
+  color: grey;
+}
+
+.review-text {
+  font-size: 18px;
+}
+
+.rating {
+  color: darkblue;
+}
+
+.log-button {
+  width: auto;
+  border-radius: 8%;
+  margin: 0;
+}
+
+.user-info {
+  font-size: 22px;
+}
+
+.home-header {
+  text-align: center;
+}
+
+.home-image {
+  text-align: center;
+}
+
+.home-page-container {
+  height: 95vh;
+}
+
+.roo {
+  height: 600px;
+  width: auto;
+}

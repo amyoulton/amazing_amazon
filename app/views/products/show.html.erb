@@ -1,0 +1,114 @@
+
+<div class="page-title"></div>
+<div class='shadow-sm p-3 mb-3 bg-white rounded overflow-wrap'>
+  <h1>
+      <%= @product.title %>
+  </h1>
+  <p class='shadow-none mb-3 rounded'><%= @product.description %></p>
+  <p class='text-muted'><%= @product.user.first_name %> <%= @product.user.last_name %></p>
+  <h5>$<%= @product.price %></h5>
+</div>
+<% if can? :crud, @product %>
+<div class="edit-delete-buttons">
+    <%= link_to(
+      "Edit",
+      edit_post_path(@product),
+      class: 'btn btn-success'
+    )
+    %>
+    <%= link_to(
+      "Delete",
+      product_path(@product),
+      method: :delete,
+      class: 'btn btn-danger',
+      data: { confirm: 'are you sure?' }
+    )
+    %>
+  </div>
+  <% end %>
+ 
+<div class='shadow-sm p-3 mb-3 bg-white rounded overflow-wrap'>
+<%=  form_with(model: [@product, @review], local: true) do |f| %>
+  <% if @review.errors.full_messages.each do |msg| %>
+    <ul>
+      <li class="text-danger"><%= msg %></li>
+    </ul>
+    <% end %>
+  <% end %>
+  <div class="form-group">
+  <h3>Please let us know what you think:</h3>
+    <%= f.number_field(
+      :rating,
+      rows: 1,
+      placeholder: "1-5",
+      class: "form-control"
+    ) %>
+  </div>
+  <div class="form-group">
+    <%= f.text_area(
+      :body,
+      cols: 50,
+      rows: 5,
+      placeholder: "What are you thoughts?",
+      class: "form-control"
+    ) %>
+  </div>
+  <%= f.submit "Rate", class: "btn" %>
+<% end %>
+
+<ul class="list-group answer-list">
+<h3>Reviews:</h3>
+  <% @reviews.each do |review| %>
+    <li class="list-group-item">
+      <h4 class="rating"><%= review.rating %> out of 5</h4>
+      <p class="review-text">
+        <%= review.body %><br /><br>
+        <small>Liked by: <%= @review.likes.count %></small>
+        <small>
+    <%= link_to(
+        "Delete",
+        product_review_path(@product, review),
+        method: :delete,
+        class: 'btn btn-danger float-right',
+        data: { confirm: 'delete this review?' }
+        )
+      %>
+      <%= link_to(
+          "Like",
+          product_review_likes_path(@product, review),
+          method: :post,
+          class: 'btn btn-danger float-right'
+        )
+      %>
+      <%# this button with DELETE '/likes/:id'. It requires the id of the like record we want to delete %>
+      <%# So we need to query it from the products#show in order to get this link to work correctly %>
+      <%= link_to(
+        "Unlike",
+        like_path(@like),
+        class: 'btn btn-danger float-right'
+      )
+      %>
+     </small>
+        <small>
+        <% if can? :crud, review %>
+          <%= link_to(
+            "Delete",
+            product_review_path(@product, review),
+            method: :delete, 
+            data: {
+              confirm: "Are you sure?"
+            },
+            class: 'btn-danger btn-sm',
+          ) %>
+        </small>
+        <% end %>
+        |     
+        <small>
+        Answered <%= time_ago_in_words(review.created_at) %> By <%= review.user.first_name %> <%= review.user.last_name %>
+        </small>
+      </p>
+    </li>
+  <% end %>
+</ul>
+</div>
+

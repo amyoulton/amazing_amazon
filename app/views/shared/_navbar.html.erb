@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-sm justify-content-between">
+        <div class="nav-buttons">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to 'Home', '/' %> 
+            </li>
+            <li class="nav-item">
+              <%= link_to 'About', '/about' %> 
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Contact Us', '/contact_us' %> 
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Bill Splitter', '/bill_splitter' %> 
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Products', '/products' %> 
+            </li>
+            <li class="nav-item">
+              <%= link_to 'New Product', '/products/new' %> 
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sign In', '/sessions/new' %> 
+            </li>
+            
+          </ul>
+        </div>
+        <div class="user-info">
+        <ul class="navbar-nav">
+    <% if user_signed_in? %>
+     <% if current_user.is_admin %>
+       <li class="nav-item">
+              <%= link_to 'Admin', '/admin' %> 
+            </li>
+      <%end%>
+      <%# this button created by link_to should DELETE /session %>
+      <li class="nav-item">
+          <%= link_to "Logout", session_path, method: :delete, class: 'btn btn-danger log-button' %>
+      </li>
+      <li class="nav-item">
+          <%= current_user.first_name %> <%= current_user.last_name %>
+      </li>      
+      
+    <% else %>
+      <%= link_to "Log In", new_session_path, class: 'btn btn-success log-button'%>
+    <% end %>
+    </ul>
+  </div>
+      </nav>
